@@ -1,0 +1,22 @@
+/Claves = [
+ "codigo","producto","precio_compra","precio_venta","stock"
+]
+Registros = [
+    {1,"Barbacoa",10.50,20.00,6}
+    {2,"Salsa",13.00,16.00,7}
+    {3,"Barbacoa",15.00,18.00,8}
+    {4,"Barbacoa",14.00,16.00,4}
+    ]
+#Comentarios*-
+'''
+comentarios multilinea
+'''
+imprimir("Reporte de");
+imprimir("Abarroteria");
+imprimirln("Reportre de "),
+imprimirln("Abarroteria"),
+conteo();*
+promedio("stock");*
+max("precio_venta");*
+min("precio_compra");*-
+exportarReporte("Reporte HTML de abarroteria");/*

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabla de Tokens Analizados</title>
+      <style>
+        table {
+            border-collapse: collapse; /* Para colapsar los bordes de las celdas */
+            width: 50%; /* Establecer el ancho de la tabla al 50% del contenedor padre */
+            margin: 0 auto; /* Centrar la tabla horizontalmente */
+            border: 2px solid black; /* Establecer un borde de 2 píxeles de ancho y sólido */
+        }
+
+        th, td {
+            border: 1px solid black; /* Establecer un borde de 1 píxel de ancho y sólido para celdas */
+            padding: 8px; /* Añadir relleno a celdas para dar espacio al contenido */
+            text-align: center; /* Centrar el contenido de las celdas horizontalmente */
+        }
+    </style>
+</head>
+<body>
+    <h1>Tabla de Tokens Analizados</h1>
+    <table>
+        <tr>
+            <th>Tipo de Token</th>
+            <th>Lexema</th>
+            <th>Fila</th>
+            <th>Columna</th>
+        </tr>
+    <tr><td>Palabra Reservada</td><td>Claves</td><td>1</td><td>3</td></tr>
+<tr><td>Signo</td><td>=</td><td>1</td><td>11</td></tr>
+<tr><td>Signo</td><td>[</td><td>1</td><td>13</td></tr>
+<tr><td>Cadena</td><td>codigo</td><td>2</td><td>2</td></tr>
+<tr><td>Signo</td><td>,</td><td>2</td><td>10</td></tr>
+<tr><td>Cadena</td><td>producto</td><td>2</td><td>11</td></tr>
+<tr><td>Signo</td><td>,</td><td>2</td><td>21</td></tr>
+<tr><td>Cadena</td><td>precio_compra</td><td>2</td><td>22</td></tr>
+<tr><td>Signo</td><td>,</td><td>2</td><td>37</td></tr>
+<tr><td>Cadena</td><td>precio_venta</td><td>2</td><td>38</td></tr>
+<tr><td>Signo</td><td>,</td><td>2</td><td>52</td></tr>
+<tr><td>Cadena</td><td>stock</td><td>2</td><td>53</td></tr>
+<tr><td>Signo</td><td>]</td><td>3</td><td>1</td></tr>
+<tr><td>Palabra Reservada</td><td>Registros</td><td>4</td><td>1</td></tr>
+<tr><td>Signo</td><td>=</td><td>4</td><td>12</td></tr>
+<tr><td>Signo</td><td>[</td><td>4</td><td>14</td></tr>
+<tr><td>Signo</td><td>{</td><td>5</td><td>5</td></tr>
+<tr><td>Numero</td><td>1</td><td>5</td><td>6</td></tr>
+<tr><td>Signo</td><td>,</td><td>5</td><td>8</td></tr>
+<tr><td>Cadena</td><td>Barbacoa</td><td>5</td><td>9</td></tr>
+<tr><td>Signo</td><td>,</td><td>5</td><td>19</td></tr>
+<tr><td>Numero</td><td>10.5</td><td>5</td><td>20</td></tr>
+<tr><td>Signo</td><td>,</td><td>5</td><td>25</td></tr>
+<tr><td>Numero</td><td>20.0</td><td>5</td><td>26</td></tr>
+<tr><td>Signo</td><td>,</td><td>5</td><td>31</td></tr>
+<tr><td>Numero</td><td>6</td><td>5</td><td>32</td></tr>
+<tr><td>Signo</td><td>}</td><td>5</td><td>34</td></tr>
+<tr><td>Signo</td><td>{</td><td>6</td><td>5</td></tr>
+<tr><td>Numero</td><td>2</td><td>6</td><td>6</td></tr>
+<tr><td>Signo</td><td>,</td><td>6</td><td>8</td></tr>
+<tr><td>Cadena</td><td>Salsa</td><td>6</td><td>9</td></tr>
+<tr><td>Signo</td><td>,</td><td>6</td><td>16</td></tr>
+<tr><td>Numero</td><td>13.0</td><td>6</td><td>17</td></tr>
+<tr><td>Signo</td><td>,</td><td>6</td><td>22</td></tr>
+<tr><td>Numero</td><td>16.0</td><td>6</td><td>23</td></tr>
+<tr><td>Signo</td><td>,</td><td>6</td><td>28</td></tr>
+<tr><td>Numero</td><td>7</td><td>6</td><td>29</td></tr>
+<tr><td>Signo</td><td>}</td><td>6</td><td>31</td></tr>
+<tr><td>Signo</td><td>{</td><td>7</td><td>5</td></tr>
+<tr><td>Numero</td><td>3</td><td>7</td><td>6</td></tr>
+<tr><td>Signo</td><td>,</td><td>7</td><td>8</td></tr>
+<tr><td>Cadena</td><td>Barbacoa</td><td>7</td><td>9</td></tr>
+<tr><td>Signo</td><td>,</td><td>7</td><td>19</td></tr>
+<tr><td>Numero</td><td>15.0</td><td>7</td><td>20</td></tr>
+<tr><td>Signo</td><td>,</td><td>7</td><td>25</td></tr>
+<tr><td>Numero</td><td>18.0</td><td>7</td><td>26</td></tr>
+<tr><td>Signo</td><td>,</td><td>7</td><td>31</td></tr>
+<tr><td>Numero</td><td>8</td><td>7</td><td>32</td></tr>
+<tr><td>Signo</td><td>}</td><td>7</td><td>34</td></tr>
+<tr><td>Signo</td><td>{</td><td>8</td><td>5</td></tr>
+<tr><td>Numero</td><td>4</td><td>8</td><td>6</td></tr>
+<tr><td>Signo</td><td>,</td><td>8</td><td>8</td></tr>
+<tr><td>Cadena</td><td>Barbacoa</td><td>8</td><td>9</td></tr>
+<tr><td>Signo</td><td>,</td><td>8</td><td>19</td></tr>
+<tr><td>Numero</td><td>14.0</td><td>8</td><td>20</td></tr>
+<tr><td>Signo</td><td>,</td><td>8</td><td>25</td></tr>
+<tr><td>Numero</td><td>16.0</td><td>8</td><td>26</td></tr>
+<tr><td>Signo</td><td>,</td><td>8</td><td>31</td></tr>
+<tr><td>Numero</td><td>4</td><td>8</td><td>32</td></tr>
+<tr><td>Signo</td><td>}</td><td>8</td><td>34</td></tr>
+<tr><td>Signo</td><td>]</td><td>9</td><td>5</td></tr>
+<tr><td>Cadena</td><td>#Comentarios*-</td><td>10</td><td>1</td></tr>
+<tr><td>Cadena</td><td>'''</td><td>11</td><td>1</td></tr>
+<tr><td>Cadena</td><td>'''</td><td>15</td><td>1</td></tr>
+<tr><td>Palabra Reservada</td><td>imprimir</td><td>18</td><td>1</td></tr>
+<tr><td>Signo</td><td>(</td><td>18</td><td>10</td></tr>
+<tr><td>Cadena</td><td>Reporte de</td><td>18</td><td>11</td></tr>
+<tr><td>Signo</td><td>)</td><td>18</td><td>23</td></tr>
+<tr><td>Signo</td><td>;</td><td>18</td><td>24</td></tr>
+<tr><td>Palabra Reservada</td><td>imprimir</td><td>19</td><td>1</td></tr>
+<tr><td>Signo</td><td>(</td><td>19</td><td>10</td></tr>
+<tr><td>Cadena</td><td>Abarroteria</td><td>19</td><td>11</td></tr>
+<tr><td>Signo</td><td>)</td><td>19</td><td>24</td></tr>
+<tr><td>Signo</td><td>;</td><td>19</td><td>25</td></tr>
+<tr><td>Palabra Reservada</td><td>imprimirln</td><td>20</td><td>1</td></tr>
+<tr><td>Signo</td><td>(</td><td>20</td><td>12</td></tr>
+<tr><td>Cadena</td><td>Reportre de </td><td>20</td><td>13</td></tr>
+<tr><td>Signo</td><td>)</td><td>20</td><td>27</td></tr>
+<tr><td>Signo</td><td>,</td><td>20</td><td>28</td></tr>
+<tr><td>Palabra Reservada</td><td>imprimirln</td><td>21</td><td>1</td></tr>
+<tr><td>Signo</td><td>(</td><td>21</td><td>12</td></tr>
+<tr><td>Cadena</td><td>Abarroteria</td><td>21</td><td>13</td></tr>
+<tr><td>Signo</td><td>)</td><td>21</td><td>26</td></tr>
+<tr><td>Signo</td><td>,</td><td>21</td><td>27</td></tr>
+<tr><td>Palabra Reservada</td><td>conteo</td><td>22</td><td>1</td></tr>
+<tr><td>Signo</td><td>(</td><td>22</td><td>8</td></tr>
+<tr><td>Signo</td><td>)</td><td>22</td><td>9</td></tr>
+<tr><td>Signo</td><td>;</td><td>22</td><td>10</td></tr>
+<tr><td>Palabra Reservada</td><td>promedio</td><td>23</td><td>1</td></tr>
+<tr><td>Signo</td><td>(</td><td>23</td><td>10</td></tr>
+<tr><td>Cadena</td><td>stock</td><td>23</td><td>11</td></tr>
+<tr><td>Signo</td><td>)</td><td>23</td><td>18</td></tr>
+<tr><td>Signo</td><td>;</td><td>23</td><td>19</td></tr>
+<tr><td>Palabra Reservada</td><td>max</td><td>24</td><td>1</td></tr>
+<tr><td>Signo</td><td>(</td><td>24</td><td>5</td></tr>
+<tr><td>Cadena</td><td>precio_venta</td><td>24</td><td>6</td></tr>
+<tr><td>Signo</td><td>)</td><td>24</td><td>20</td></tr>
+<tr><td>Signo</td><td>;</td><td>24</td><td>21</td></tr>
+<tr><td>Palabra Reservada</td><td>min</td><td>25</td><td>1</td></tr>
+<tr><td>Signo</td><td>(</td><td>25</td><td>5</td></tr>
+<tr><td>Cadena</td><td>precio_compra</td><td>25</td><td>6</td></tr>
+<tr><td>Signo</td><td>)</td><td>25</td><td>21</td></tr>
+<tr><td>Signo</td><td>;</td><td>25</td><td>22</td></tr>
+<tr><td>Palabra Reservada</td><td>exportarReporte</td><td>26</td><td>1</td></tr>
+<tr><td>Signo</td><td>(</td><td>26</td><td>17</td></tr>
+<tr><td>Cadena</td><td>Reporte HTML de abarroteria</td><td>26</td><td>18</td></tr>
+<tr><td>Signo</td><td>)</td><td>26</td><td>47</td></tr>
+<tr><td>Signo</td><td>;</td><td>26</td><td>48</td></tr>
+
+    </table>
+</body>
+</html>
+    
