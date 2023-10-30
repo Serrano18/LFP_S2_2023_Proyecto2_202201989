@@ -70,4 +70,4 @@ Este proyecto consiste en una aplicación que realiza análisis léxico de un le
 ###  AFD
 ![Vista Principal](https://github.com/Serrano18/LFP_S2_2023_Proyecto2_202201989/blob/main/Imagenes/Interfaz.png)
 ### Gramática
-![Vista Principal](https://github.com/Serrano18/LFP_S2_2023_Proyecto2_202201989/blob/main/Imagenes/Interfaz.png)
+![Vista Principal](https://github.com/Serrano18/LFP_S2_2023_Proyecto2_202201989/blob/main/Imagenes/Gramatica.jpeg)
