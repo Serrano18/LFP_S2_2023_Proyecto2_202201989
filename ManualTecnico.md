@@ -66,7 +66,7 @@ Este proyecto consiste en una aplicación que realiza análisis léxico de un le
 - Realiza un análisis sintáctico para identificar y ejecutar el comando "contarsi".
 - Calcula y muestra el número de veces que un valor dado se repite en un campo especificado.
 ###  Metodo de árbol
-![Vista Principal](https://github.com/Serrano18/LFP_S2_2023_Proyecto2_202201989/blob/main/Imagenes/Interfaz.png)
+![Vista Principal](https://github.com/Serrano18/LFP_S2_2023_Proyecto2_202201989/blob/main/Imagenes/ARBOL.jpeg)
 ###  AFD
 ![Vista Principal](https://github.com/Serrano18/LFP_S2_2023_Proyecto2_202201989/blob/main/Imagenes/AFD.jpeg)
 ### Gramática
