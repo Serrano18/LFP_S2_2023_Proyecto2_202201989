@@ -23,12 +23,11 @@ La ventana principal de la aplicación es la interfaz gráfica principal donde s
 
 El área de edición de código es una caja de texto grande donde puedes ingresar o cargar el código fuente que deseas analizar. Es el espacio principal donde se realiza la entrada de datos.
 
-![Area de Texto](https://github.com/Serrano18/LFP_S2_2023_Proyecto1_202201989/blob/main/Imagenes/Cuadros%20de%20Texto.png)
 
 # Botones y Funciones
 
 La parte inferior de la ventana principal contiene botones que realizan diversas funciones. Aquí se describe la función de cada botón:
-![Botón Analizar](https://github.com/Serrano18/LFP_S2_2023_Proyecto1_202201989/blob/main/Imagenes/BotonesAnalizador.png)
+![Botón Analizar](https://github.com/Serrano18/LFP_S2_2023_Proyecto2_202201989/blob/main/Imagenes/Botones.png)
 
 ### Botón "Analizar"
 
@@ -39,7 +38,7 @@ La parte inferior de la ventana principal contiene botones que realizan diversas
 
 
 ### Botón "Reporte"
-![Botón Analizar](https://github.com/Serrano18/LFP_S2_2023_Proyecto1_202201989/blob/main/Imagenes/BotonesArchivo.png)
+![Botón Analizar](https://github.com/Serrano18/LFP_S2_2023_Proyecto2_202201989/blob/main/Imagenes/Reportes.png)
 - **Descripción:** Esta serie de botones genera los distintos reportes
 - **Acción:** Al hacer clic en este botón, se generará un informe html que contiene información sobre las operaciones realizadas durante el análisis.
 
