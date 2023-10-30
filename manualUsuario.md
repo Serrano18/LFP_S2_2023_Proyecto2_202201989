@@ -34,9 +34,6 @@ La parte inferior de la ventana principal contiene botones que realizan diversas
 - **Descripción:** Este botón inicia el análisis léxico y sintactico del código fuente ingresado en el área de edición de código.
 - **Acción:** Al hacer clic en este botón, se ejecutará el análisis léxico y sintactico y se mostrarán los resultados en la sección de resultados.
 
-### Botón "Errores"
-
-
 ### Botón "Reporte"
 ![Botón Analizar](https://github.com/Serrano18/LFP_S2_2023_Proyecto2_202201989/blob/main/Imagenes/Reportes.png)
 - **Descripción:** Esta serie de botones genera los distintos reportes
