@@ -11,6 +11,7 @@ Registros = [
 '''
 comentarios multilinea
 '''
+contarsi("stock",8);
 imprimir("Reporte de");
 imprimir("Abarroteria");
 imprimirln("Reportre de ");
@@ -20,4 +21,3 @@ promedio("stock");
 max("precio_venta");
 min("precio_compra");
 exportarReporte("Reporte HTML de abarroteria");
-contarsi("stock",8);

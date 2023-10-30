@@ -127,7 +127,6 @@ def analizador(secuencia):
             secuencia=secuencia[1:]
             posicion = 0
             numero_columna+=1
-
 def crear_cadena_triple_comillas(secuencia):
     global numero_fila
     global numero_columna
@@ -144,7 +143,6 @@ def crear_cadena_triple_comillas(secuencia):
             return palabra, secuencia
 
     return None, None
-
 def crear_palabra(secuencia):
     global numero_fila
     global numero_columna
@@ -163,7 +161,6 @@ def crear_palabra(secuencia):
                         
             palabra+=num
     return None,None
-
 def crear_palabra_reservada(secuencia):
     palabra = ''
     posicion = ''
@@ -175,7 +172,6 @@ def crear_palabra_reservada(secuencia):
         else:
             return palabra, secuencia[len(posicion):]
     return None,None
-
 def crear_numero(secuencia):
 
     valornume=''
@@ -187,7 +183,7 @@ def crear_numero(secuencia):
         posicion+=num
         if num == '.':
             decimal=True
-        if num == "," or num=='"' or num == ' ' or num=='\n' or num== '\t' or num=='}'or num==']':
+        if num == "," or num=='"' or num == ' ' or num=='\n' or num== '\t' or num=='}'or num==']'or num==')':
             if decimal:
                 return float(valornume),secuencia[len(posicion)-1:]#Python usa índices basados en cero, entonces necesito el último carácter procesado.
             else:
@@ -222,7 +218,6 @@ def generar_reporte(tipo_reporte):
         generar_tabla_html(lista_palabras)
     if tipo_reporte == "Errores":
         generar_tabla_html2(lista_errores)
-        
 
 def generar_tabla_html(lista_palabras):
     html = """<!DOCTYPE html>
@@ -318,9 +313,6 @@ def cargar_archivo():
             area_texto_izquierda.delete(1.0, tk.END)  
             area_texto_izquierda.insert(tk.END, content)  
 
-
-
-
 #ANALIZADOR SINTACTICO
 def analizador_sintactico():
     almacenaryverificarClaves()
@@ -335,13 +327,6 @@ def analizador_sintactico():
     verificacionpalabrascadena("sumar")
     verificacionpalabrascadena("promedio")
     verificarcontarsi("contarsi")
-    
-    
-        
-    
-    
-
-
 def verificacionconteo(token):
         i = 0
         while i < len(lista_palabras):
@@ -645,7 +630,6 @@ def verificacionpalabrascadena(token):
                         p = Palabra("Error Sintactico", siguiente.palabra, siguiente.fila, siguiente.columna)
                         lista_errores.append(p)
             i += 1
-
 def almacenaryverificarClaves():
     i = 0
     while i < len(lista_palabras):
@@ -695,7 +679,6 @@ def almacenaryverificarClaves():
                 p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
                 lista_errores.append(p)
         i += 1
-
 def almacenaryverificarRegistros():
     i = 0
     while i < len(lista_palabras):
