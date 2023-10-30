@@ -16,7 +16,7 @@ La vista de la aplicación del Analizador Léxico y Sintactico se compone de una
 
 La ventana principal de la aplicación es la interfaz gráfica principal donde se lleva a cabo todo el proceso de análisis léxico. A continuación, se describen los elementos clave de esta vista:
 
-![Vista Principal](https://github.com/Serrano18/LFP_S2_2023_Proyecto1_202201989/blob/main/Imagenes/VentanaPrinicpal.png)
+![Vista Principal](https://github.com/Serrano18/LFP_S2_2023_Proyecto2_202201989/blob/main/Imagenes/Interfaz.png)
 
 
 ## Área de Edición de Código
