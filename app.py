@@ -1,5 +1,4 @@
 
-import html
 import tkinter as tk
 from tkinter import filedialog
 import tkinter.font as tkFont
@@ -106,7 +105,7 @@ def analizador(secuencia):
                 if palabra:
                     p = Palabra("Cadena", palabra, numero_fila, numero_columna)
                     lista_palabras.append(p)
-                    print(palabra)
+                    
                     numero_columna+= len(palabra)+1
                     comentario_multilinea = True
                 else:
@@ -195,24 +194,27 @@ def crear_numero(secuencia):
                 return int(valornume),secuencia[len(posicion)-1:]
         else:
             if num=='@' or num=='!' or num=='|' or num=='#' or num == '$' or num == '%' or num == '&' or num == '(' or num == ')' or num == '=' or num == '?' or num == '¿' or num=='+' or num=='-' or num=='/'or num=='*'or num =='_' or num=='¡'or num=='-' or num==';' or num=='^' or num== 'ª' or num=='º' or num=='€' or num=='½'or num=='~' or num=='°' or num=='©'or num=='·':
-                    e=Palabra(num,numero_fila,numero_columna+len(valornume)+1)
+                    e=Palabra("Numero",num,numero_fila,numero_columna+len(valornume)+1)
                     lista_errores.append(e)
             valornume+=num
             ncol+=1
     return None,None
 def analizar_archivo():
+    global listado_claves
+    global listado_registrtos
+    global lista_palabras
+    global lista_errores
+    listado_claves=[]
+    listado_registrtos=[]
+    lista_errores=[]
+    lista_palabras=[]
     texto = area_texto_izquierda.get("1.0", "end-1c")  
     analizador(texto)
-    analizador_sintactico(lista_palabras)
-    almacenaryverificarRegistros()
-    print("  ---------------------------- ")
-    for registro in listado_registrtos:
-        print(registro)
-
-    print("  ---------------------------- ")
+    analizador_sintactico()
+ 
     print("  ---------------------------- ")
     for palabra in lista_palabras:
-        print(palabra.palabra)
+        print(palabra.palabra , "F: " + str(palabra.fila) + "C: "+str(palabra.columna))
     print("  ---------------------------- ")
 def generar_reporte(tipo_reporte):
     
@@ -220,6 +222,7 @@ def generar_reporte(tipo_reporte):
         generar_tabla_html(lista_palabras)
     if tipo_reporte == "Errores":
         generar_tabla_html2(lista_errores)
+        
 
 def generar_tabla_html(lista_palabras):
     html = """<!DOCTYPE html>
@@ -263,8 +266,6 @@ def generar_tabla_html(lista_palabras):
     with open("tabla_tokens.html", "w") as archivo_html:
         archivo_html.write(html)
     webbrowser.open("tabla_tokens.html")
-
-
 
 def generar_tabla_html2(lista_error):
     html = """<!DOCTYPE html>
@@ -321,13 +322,384 @@ def cargar_archivo():
 
 
 #ANALIZADOR SINTACTICO
-def analizador_sintactico(tokens):
-    pass
-def almacenaryverificarRegistros():
+def analizador_sintactico():
+    almacenaryverificarClaves()
+    almacenaryverificarRegistros()
+    verificacionconteo("conteo")
+    verificacionconteo("datos")
+    verificacionpalabrascadena("imprimir")
+    verificacionpalabrascadena("imprimirln")
+    verificacionpalabrascadena("max")
+    verificacionpalabrascadena("min")
+    verificacionpalabrascadena("exportarReporte")
+    verificacionpalabrascadena("sumar")
+    verificacionpalabrascadena("promedio")
+    verificarcontarsi("contarsi")
+    
+    
+        
+    
+    
+
+
+def verificacionconteo(token):
+        i = 0
+        while i < len(lista_palabras):
+            
+            palabra = lista_palabras[i]
+            if palabra.palabra == token:
+                
+                if i+1< len(lista_palabras):
+                    siguiente=lista_palabras[i + 1]
+                    if siguiente.palabra == "(":
+                        
+                        i += 2  # Saltar "roken" y (
+                        if i < len(lista_palabras):
+                            if lista_palabras[i].palabra == ")":
+                                i+=1
+                                if i < len(lista_palabras):
+                                    if lista_palabras[i].palabra == ";":
+                                        if token == "conteo":
+                                            mensaje = "\n"+">>>"+str(len(listado_registrtos))+ "\n"
+                                            consola_derecha.config(state=tk.NORMAL)
+                                            consola_derecha.insert(tk.END, str(mensaje))
+                                            consola_derecha.config(state=tk.NORMAL)
+                                            break
+                                        elif token == "datos":
+                                            mensaje1= "    ".join(listado_claves) + "\n"
+                                            consola_derecha.config(state=tk.NORMAL)
+                                            consola_derecha.insert(tk.END,mensaje1)
+                                            # Calcula el número de claves
+                                            num_claves = len(listado_claves)
+                                            # Itera sobre la lista de registros y agrégala al cuadro de texto en filas
+                                            for j in range(0, len(listado_registrtos), num_claves):
+                                                fila = "".join(str(listado_registrtos[j:j + num_claves])) + "\n"
+                                                consola_derecha.insert(tk.END, fila)
+                                            consola_derecha.config(state=tk.DISABLED)
+                                            
+                                    else:
+                                        p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                                        lista_errores.append(p)
+                            else:
+                                p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                                lista_errores.append(p)
+                                i+=1
+                    else:
+                        p = Palabra("Error Sintactico", siguiente.palabra, siguiente.fila, siguiente.columna)
+                        lista_errores.append(p)
+            i += 1
+def verificarcontarsi(token):
+        i = 0
+        while i < len(lista_palabras):
+            palabra = lista_palabras[i]
+            if palabra.palabra == token:
+                if i+1< len(lista_palabras):
+                    siguiente=lista_palabras[i + 1]
+                    if siguiente.palabra == "(":
+                        i += 2  # Saltar "roken" y (
+                        if i < len(lista_palabras):
+                            if lista_palabras[i].tipo == "Cadena":
+                                posicion_cadena=i
+                                i+=1
+                                if i < len(lista_palabras):
+                                    if lista_palabras[i].palabra == ",":
+                                        i+=1
+                                        if i < len(lista_palabras):
+                                            if lista_palabras[i].tipo == "Numero":
+                                                posicion_numero=i
+                                                i+=1
+                                                if i < len(lista_palabras):
+                                                    if lista_palabras[i].palabra == ")":
+                                                        i+=1
+                                                        if i < len(lista_palabras):
+                                                            if lista_palabras[i].palabra == ";":
+                                                                
+                                                                campo = str(lista_palabras[posicion_cadena].palabra)
+                                                                valor = lista_palabras[posicion_numero].palabra
+                                                                indice_campo = None
+                                                                n_columnas = len(listado_claves)
+                                                                if campo in listado_claves:
+                                                                    indice_campo = listado_claves.index(campo)
+                                                                    if indice_campo is not None:
+                                                                        print("entor")
+                                                                        valores_campo = [listado_registrtos[i] for i in range(indice_campo, len(listado_registrtos), n_columnas)]
+                                                                        cantidad_repeticiones = valores_campo.count(valor)
+                                                                        mensaje = f"\n>>> El valor {valor} se repite {cantidad_repeticiones} veces en el campo '{campo}'\n"
+                                                                        consola_derecha.config(state=tk.NORMAL)
+                                                                        consola_derecha.insert(tk.END, mensaje)
+                                                                        consola_derecha.config(state=tk.DISABLED)
+
+                                                    else:
+                                                        p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                                                        lista_errores.append(p)
+                                            else:
+                                                p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                                                lista_errores.append(p)
+                                    else:
+                                        p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                                        lista_errores.append(p)
+                                        
+                            else:
+                                p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                                lista_errores.append(p)
+                                
+                    else:
+                        p = Palabra("Error Sintactico", siguiente.palabra, siguiente.fila, siguiente.columna)
+                        lista_errores.append(p)
+            i += 1
+def verificacionpalabrascadena(token):
+        i = 0
+        while i < len(lista_palabras):
+            palabra = lista_palabras[i]
+            if palabra.palabra == token:
+                if i+1< len(lista_palabras):
+                    siguiente=lista_palabras[i + 1]
+                    if siguiente.palabra == "(":
+                        i += 2  # Saltar "roken" y (
+                        if i < len(lista_palabras):
+                            if lista_palabras[i].tipo == "Cadena":
+                                posicion_cadena=i
+                                i+=1
+                                if i < len(lista_palabras):
+                                    if lista_palabras[i].palabra == ")":
+                                        i+=1
+                                        if i < len(lista_palabras):
+                                            if lista_palabras[i].palabra == ";":
+                                                if token == "imprimir":
+                                                    mensaje = " "+str(lista_palabras[posicion_cadena].palabra)
+                                                    consola_derecha.config(state=tk.NORMAL)
+                                                    consola_derecha.insert(tk.END, str(mensaje))
+                                                    consola_derecha.config(state=tk.DISABLED)
+                                                    
+                                                elif token == "imprimirln":
+                                                    mensaje =  "\n"+">>>"+str(lista_palabras[posicion_cadena].palabra)
+                                                    consola_derecha.config(state=tk.NORMAL)
+                                                    consola_derecha.insert(tk.END, str(mensaje))
+                                                    consola_derecha.config(state=tk.DISABLED)
+                                                elif token == "promedio":
+                                                    
+                                                    campo = str(lista_palabras[posicion_cadena].palabra)
+                                                    indice_campo = None
+                                                    n_columnas =   len(listado_claves)# Esto asume que tienes un total de 5 columnas por registro
+
+                                                    if campo in listado_claves:
+                                                        indice_campo = listado_claves.index(campo)
+                                                        if indice_campo is not None:
+                                                            valores_stock = [listado_registrtos[i] for i in range(indice_campo, len(listado_registrtos), n_columnas)]
+                                                            valores_numericos = [valor for valor in valores_stock if isinstance(valor, (int, float))]
+                                                            if valores_numericos:
+                                                                promedio = sum(valores_numericos) / len(valores_numericos)
+                                                                mensaje =  "\n"+">>> P "+str(promedio)
+                                                                consola_derecha.config(state=tk.NORMAL)
+                                                                consola_derecha.insert(tk.END, str(mensaje))
+                                                                consola_derecha.config(state=tk.DISABLED)
+                                                                
+                                                            else:
+                                                                print(f"No se encontraron valores numéricos en el campo '{campo}'")
+                                                        else:
+                                                            print(f"El campo '{campo}' no existe en los registros.")
+                                                    else:
+                                                        print(f"El campo '{campo}' no existe en los registros.")
+
+                                                elif token == "sumar":
+                                                    campo = str(lista_palabras[posicion_cadena].palabra)
+                                                    indice_campo = None
+                                                    n_columnas =   len(listado_claves)# Esto asume que tienes un total de 5 columnas por registro
+
+                                                    if campo in listado_claves:
+                                                        indice_campo = listado_claves.index(campo)
+                                                        if indice_campo is not None:
+                                                            valores_stock = [listado_registrtos[i] for i in range(indice_campo, len(listado_registrtos), n_columnas)]
+                                                            valores_numericos = [valor for valor in valores_stock if isinstance(valor, (int, float))]
+                                                            if valores_numericos:
+                                                                suma = sum(valores_numericos)
+                                                                mensaje =  "\n"+">>> S "+str(suma)
+                                                                consola_derecha.config(state=tk.NORMAL)
+                                                                consola_derecha.insert(tk.END, str(mensaje))
+                                                                consola_derecha.config(state=tk.DISABLED)
+                                                                
+                                                            else:
+                                                                print(f"No se encontraron valores numéricos en el campo '{campo}'")
+                                                        else:
+                                                            print(f"El campo '{campo}' no existe en los registros.")
+                                                    else:
+                                                        print(f"El campo '{campo}' no existe en los registros.")
+                                                elif token == "max":
+                                                    campo = str(lista_palabras[posicion_cadena].palabra)
+                                                    indice_campo = None
+                                                    n_columnas =   len(listado_claves)# Esto asume que tienes un total de 5 columnas por registro
+
+                                                    if campo in listado_claves:
+                                                        indice_campo = listado_claves.index(campo)
+                                                        if indice_campo is not None:
+                                                            valores_stock = [listado_registrtos[i] for i in range(indice_campo, len(listado_registrtos), n_columnas)]
+                                                            valores_numericos = [valor for valor in valores_stock if isinstance(valor, (int, float))]
+                                                            if valores_numericos:
+                                                                maximo = max(valores_numericos)
+                                                                mensaje =  "\n"+">>> Max "+str(maximo)
+                                                                consola_derecha.config(state=tk.NORMAL)
+                                                                consola_derecha.insert(tk.END, str(mensaje))
+                                                                consola_derecha.config(state=tk.DISABLED)
+                                                                
+                                                            else:
+                                                                print(f"No se encontraron valores numéricos en el campo '{campo}'")
+                                                        else:
+                                                            print(f"El campo '{campo}' no existe en los registros.")
+                                                    else:
+                                                        print(f"El campo '{campo}' no existe en los registros.")
+                                                elif token == "min":
+                                                    campo = str(lista_palabras[posicion_cadena].palabra)
+                                                    indice_campo = None
+                                                    n_columnas =   len(listado_claves)# Esto asume que tienes un total de 5 columnas por registro
+
+                                                    if campo in listado_claves:
+                                                        indice_campo = listado_claves.index(campo)
+                                                        if indice_campo is not None:
+                                                            valores_stock = [listado_registrtos[i] for i in range(indice_campo, len(listado_registrtos), n_columnas)]
+                                                            valores_numericos = [valor for valor in valores_stock if isinstance(valor, (int, float))]
+                                                            if valores_numericos:
+                                                                minimo = min(valores_numericos)
+                                                                mensaje =  "\n"+">>> Min "+str(minimo)
+                                                                consola_derecha.config(state=tk.NORMAL)
+                                                                consola_derecha.insert(tk.END, str(mensaje))
+                                                                consola_derecha.config(state=tk.DISABLED)
+                                                                
+                                                            else:
+                                                                print(f"No se encontraron valores numéricos en el campo '{campo}'")
+                                                        else:
+                                                            print(f"El campo '{campo}' no existe en los registros.")
+                                                    else:
+                                                        print(f"El campo '{campo}' no existe en los registros.")
+                                                elif token=="exportarReporte":
+                                                    campo = str(lista_palabras[posicion_cadena].palabra)
+                                                    html = """<!DOCTYPE html>
+                                                    <html>
+                                                    <head>
+                                                        <title>Tabla de Tokens Analizados</title>
+                                                        <style>
+                                                            table {{
+                                                                border-collapse: collapse; /* Para colapsar los bordes de las celdas */
+                                                                width: 50%; /* Establecer el ancho de la tabla al 50% del contenedor padre */
+                                                                margin: 0 auto; /* Centrar la tabla horizontalmente */
+                                                                border: 2px solid black; /* Establecer un borde de 2 píxeles de ancho y sólido */
+                                                            }}
+
+                                                            th, td {{
+                                                                border: 1px solid black; /* Establecer un borde de 1 píxel de ancho y sólido para celdas */
+                                                                padding: 8px; /* Añadir relleno a celdas para dar espacio al contenido */
+                                                                text-align: center; /* Centrar el contenido de las celdas horizontalmente */
+                                                            }}
+                                                        </style>
+                                                    </head>
+                                                    <body>
+                                                        <h1>{}</h1>
+                                                    
+                                                        <table>
+                                                            <tr>
+                                                                """.format(campo)
+                                                    # Agrega los encabezados de columna a partir de la lista de claves
+                                                    for clave in listado_claves:
+                                                        html += f"<th>{clave}</th>"
+
+                                                    html += """
+                                                            </tr>
+                                                            """
+                                                    # Agrega las filas de datos a partir de la lista de registros
+                                                    # Agrega las filas de datos a partir de la lista de registros
+                                                    registros_por_fila = len(listado_claves)  # Define cuántos registros de claves quieres en cada fila
+                                                    contador = 0  # Inicializa un contador
+                                                    
+                                                    # Agrega las filas de datos a partir de la lista de registros
+                                                    for i, registro in enumerate(listado_registrtos, start=1):
+                                                        if contador == 0:
+                                                            html += "<tr>"
+                                                        html += f"<td>{str(registro)}</td>"
+                                                        contador += 1
+                                                        if contador == registros_por_fila:
+                                                            html += "</tr>"
+                                                            contador = 0
+                                                    if contador > 0:
+                                                        html += "</tr>"
+
+                                                    html += """
+                                                        </table>
+                                                    </body>
+                                                    </html>
+                                                    """
+                                                    with open("reporte.html", "w") as archivo_html:
+                                                        archivo_html.write(html)
+                                                    webbrowser.open("reporte.html")
+                                                    break
+                                            else:
+                                                p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                                                lista_errores.append(p)
+                                    else:
+                                        p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                                        lista_errores.append(p)
+                                        
+                            else:
+                                p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                                lista_errores.append(p)
+                                
+                    else:
+                        p = Palabra("Error Sintactico", siguiente.palabra, siguiente.fila, siguiente.columna)
+                        lista_errores.append(p)
+            i += 1
+
+def almacenaryverificarClaves():
     i = 0
     while i < len(lista_palabras):
         palabra = lista_palabras[i]
 
+        if palabra.palabra == "Claves":
+            if i + 1 < len(lista_palabras):
+                siguiente = lista_palabras[i + 1]
+                if siguiente.palabra == "=":
+                    i += 2  # Saltar "Claves" y "="
+
+                    if i < len(lista_palabras):
+                        if lista_palabras[i].palabra == "[":
+                            i += 1  # Saltar "["
+
+                            while i < len(lista_palabras):
+                                if lista_palabras[i].palabra == "]":
+                                    # Finaliza la lista de claves
+                                    i += 1  # Saltar "]"
+                                    
+                                    break
+                                elif lista_palabras[i].tipo == "Cadena":
+                                    # Procesar cadena de caracteres
+                                    listado_claves.append(lista_palabras[i].palabra)
+                                    i += 1
+                                    if i < len(lista_palabras) and lista_palabras[i].palabra == ",":
+                                        i += 1  # Saltar ","
+                                    elif lista_palabras[i].palabra == "]":
+                                        # Finaliza la lista de claves
+                                        i += 1  # Saltar "]"
+                                        
+                                        break
+                                else:
+                                    p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                                    lista_errores.append(p)
+                                    i += 1
+                        else:
+                            p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                            lista_errores.append(p)
+                    else:
+                        p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                        lista_errores.append(p)
+                else:
+                    p = Palabra("Error Sintactico", siguiente.palabra, siguiente.fila, siguiente.columna)
+                    lista_errores.append(p)
+            else:
+                p = Palabra("Error Sintactico", lista_palabras[i].palabra, lista_palabras[i].fila, lista_palabras[i].columna)
+                lista_errores.append(p)
+        i += 1
+
+def almacenaryverificarRegistros():
+    i = 0
+    while i < len(lista_palabras):
+        palabra = lista_palabras[i]
         if palabra.palabra == "Registros":
             if i + 1 < len(lista_palabras):
                 siguiente = lista_palabras[i + 1]
@@ -347,22 +719,23 @@ def almacenaryverificarRegistros():
                                         if lista_palabras[i].palabra == "}":
                                             if lista_palabras[i+1].palabra == "]":
                                                 i += 1  # Saltar "]"
-                                                print("salio")
+                                                
                                                 break
                                             continuar=False
                                             i += 1
                                         elif lista_palabras[i].palabra == ",":
                                             i += 1  # Saltar ","
+                                            
                                         else:
                                             # Verificar si el elemento es un número o cadena
                                             if lista_palabras[i].tipo in ["Numero", "Cadena"]:
                                                 listado_registrtos.append(lista_palabras[i].palabra)
                                                 i += 1
-                                       
                                             else:
                                                 p = Palabra("Error Sintactico",lista_palabras[i].palabra,lista_palabras[i].fila,lista_palabras[i].columna)
                                                 lista_errores.append(p)
                                                 i += 1
+                                                
                                 elif lista_palabras[i].palabra == "]":
                                     i += 1  # Saltar "]"
                                     #print("salio")
